@@ -3,7 +3,7 @@ import { newConnection } from '../dataBase/dataBase.js';
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const connection = await newConnection();
     const { nombre, email, contraseña } = req.body;
     await connection.query('INSERT INTO reg_usuarios (nombre, email, contraseña) values (?,?,?)', [nombre, email, contraseña]);
@@ -11,9 +11,9 @@ router.post('/', async (req, res) => {
     connection.end();
 });
 
-// router.get('/', (req, res) => {
-//     res.send('Obtener registro');
-// });
+router.get('/', (req, res) => {
+    res.send('Obtener registro');
+});
 
 // router.put('/', (req, res) => {
 //     res.send('Modficar registro');
