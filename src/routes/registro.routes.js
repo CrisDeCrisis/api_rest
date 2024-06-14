@@ -6,9 +6,10 @@ const router = Router();
 router.post('/register', async (req, res) => {
     const connection = await newConnection();
     const { nombre, email, contraseña } = req.body;
-    await connection.query('INSERT INTO reg_usuarios (nombre, email, contraseña) values (?,?,?)', [nombre, email, contraseña]);
-    res.send('Nuevo usuario creado');
+    const newUser = await connection.query('INSERT INTO reg_usuarios (nombre, email, contraseña) values (?,?,?)', [nombre, email, contraseña]);
+    if(newUser[0].affectedRows === 0) return res.status(400).json({message: 'No se pudo registrar el usuario'});
     connection.end();
+    return res.status(200).json({nombre, email});
 });
 
 router.get('/', (req, res) => {

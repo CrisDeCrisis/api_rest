@@ -1,10 +1,12 @@
 import express from 'express';
 import router from './routes/registro.routes.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
 // Middleware para que express pueda entender los datos que vienen en formato JSON
 app.use(express.json());
+app.use(cors());
 
 
 
